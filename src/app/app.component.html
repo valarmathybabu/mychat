@@ -1,0 +1,53 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="panel panel-primary">
+        <div class="panel-heading" id="accordion">
+          <span class="glyphicon glyphicon-comment"></span> {{title}}
+          <div class="btn-group pull-right">
+            <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion"
+              href="#collapseOne">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+          </div>
+          <div *ngIf="!username" class="usernamebox">
+            <div class="user">
+                <p style="padding-bottom: 10px; font-weight: bold; ">Who are you?</p>
+                <form (submit)="addUser(user)">
+                    <input type="text" name="user" [(ngModel)]="user">
+                    <button type="submit">Join Chat</button>
+                </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel-collapse ">
+          <div id="scrolldiv" class="panel-body">
+            <div  *ngIf="username" class="chatarea">
+              <div class="chat" *ngFor="let chat of chats; let i = index" [class.notify]="chat.type == 'notify'" [class.me]="chat.user == username">
+                <p><span class="username">{{chat.user}}</span>{{chat.message}}</p>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-footer">
+        <div  *ngIf="username" class="input-group">
+          <input class="form-control input-sm" (keyup.enter)="addChat()" name="message" [(ngModel)]="message" placeholder="Type your message here.." type="text">
+          <span class="input-group-btn">
+            <button type="submit" (click)="addChat()" class="btn btn-warning btn-sm">Send</button>
+          </span>
+        </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
